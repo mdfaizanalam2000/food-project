@@ -3,13 +3,22 @@ import thunk from "redux-thunk";
 
 import { restaurantReducer } from "./reducers/restaurantReducer";
 import { menuReducer } from "./reducers/menuReducer";
+import { cartReducer } from "./reducers/cartReducer";
 
 const reducer = combineReducers({
     restaurants: restaurantReducer,
-    menus: menuReducer
+    menus: menuReducer,
+    cart: cartReducer
 });
 
-let initialState = {};
+let initialState = {
+    cart: {
+        cartItems: localStorage.getItem("cartItems") ?
+            JSON.parse(localStorage.getItem("cartItems")) : [],
+        deliveryInfo: localStorage.getItem("deliveryInfo") ?
+            JSON.parse(localStorage.getItem("deliveryInfo")) : []
+    }
+};
 
 const composeenhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -1,4 +1,6 @@
 import './App.css';
+import Cart from './components/Cart';
+import Delivery from './components/Delivery';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -14,6 +16,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} exact />
             <Route path='/eats/stores/:id/menus' element={<Menu />} exact />
+            <Route path='/cart' element={<Cart />} exact />
+            <Route path='/delivery' element={<Delivery />} exact />
           </Routes>
         </div>
         <Footer />

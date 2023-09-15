@@ -1,10 +1,62 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
+import { addItemToCart, updateCartQuantity, removeItemFromCart } from "../actions/cartAction";
 
 export default function FoodItem({ fooditem }) {
-    const [quantity] = useState(0);
+    const [quantity, setQuantity] = useState(0);
     const [showButtons, setShowButtons] = useState(false);
+
+    const dispatch = useDispatch();
+    const alert = useAlert();
+    const cartItems = useSelector((state) => state.cart.cartItems);
+
+    useEffect(() => {
+        const cartItem = cartItems.find((item) => item.fooditem === fooditem._id);
+        if (cartItem) {
+            setQuantity(cartItem.quantity);
+            setShowButtons(true);
+        }
+    }, [cartItems, fooditem])
+
+    const decreaseQuantity = () => {
+        if (quantity > 1) {
+            setQuantity((prevQuantity) => {
+                const newQuantity = prevQuantity - 1;
+                dispatch(updateCartQuantity(fooditem._id, newQuantity));
+                return newQuantity;
+            })
+        }
+        else {
+            setQuantity(0);
+            setShowButtons(false);
+            dispatch(removeItemFromCart(fooditem._id));
+        }
+    }
+
+    const increaseQuantity = () => {
+        if (quantity < fooditem.stock) {
+            setQuantity((prevQuantity) => {
+                const newQuantity = prevQuantity + 1;
+                if (newQuantity > 0) {
+                    dispatch(addItemToCart(fooditem._id, newQuantity));
+                    dispatch(updateCartQuantity(fooditem._id, newQuantity)).then(() => {
+                        alert.success("Items added to cart");
+                        setShowButtons(true);
+                    }).catch((error) => {
+                        alert.error("Failed to add items to cart");
+                    })
+                }
+                else {
+                    alert.error("Please select a quantity greater than 0");
+                }
+                return newQuantity;
+            })
+        }
+    }
+
     const showAddToCartButtons = () => {
         setShowButtons(true);
     }
@@ -24,9 +76,9 @@ export default function FoodItem({ fooditem }) {
                     {!showButtons && <button type='button' id='cart_btn' className='btn btn-primary d-inline ml-4' disabled={fooditem.stock === 0} onClick={showAddToCartButtons}>Add To Cart
                     </button>}
                     {showButtons && <div className='stockCounter d-inline'>
-                        <span className='btn btn-danger minus'>-</span>
+                        <span className='btn btn-danger minus' onClick={decreaseQuantity}>-</span>
                         <input type="number" className='form-control count d-inline' value={quantity} readOnly />
-                        <span className="btn btn-primary plus">+</span>
+                        <span className="btn btn-primary plus" onClick={increaseQuantity}>+</span>
                     </div>}
                     <hr />
                     <p>
