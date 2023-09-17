@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Home from './components/Home';
 import Menu from './components/Menu';
+import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path='/eats/stores/:id/menus' element={<Menu />} exact />
             <Route path='/cart' element={<Cart />} exact />
             <Route path='/delivery' element={<Delivery />} exact />
+            <Route path='/users/login' element={<Login />} exact />
           </Routes>
         </div>
         <Footer />
