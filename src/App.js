@@ -7,8 +7,20 @@ import Home from './components/Home';
 import Menu from './components/Menu';
 import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from './components/Register';
+import Profile from './components/Profile';
+import UpdateProfile from './components/UpdateProfile';
+import ForgotPassword from './components/ForgotPassword';
+import NewPassword from './components/NewPassword';
+import { useEffect } from 'react';
+import { loadUser } from './actions/userAction';
+import store from "./store";
 
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, [])
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -20,6 +32,11 @@ function App() {
             <Route path='/cart' element={<Cart />} exact />
             <Route path='/delivery' element={<Delivery />} exact />
             <Route path='/users/login' element={<Login />} exact />
+            <Route path='/users/signup' element={<Register />} exact />
+            <Route path='/users/me' element={<Profile />} exact />
+            <Route path='/users/me/update' element={<UpdateProfile />} exact />
+            <Route path='/users/forgetPassword' element={<ForgotPassword />} exact />
+            <Route path='/users/resetPassword/:token' element={<NewPassword />} exact />
           </Routes>
         </div>
         <Footer />

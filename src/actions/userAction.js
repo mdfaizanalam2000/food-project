@@ -19,7 +19,7 @@ export const login = (email, password) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: LOGIN_FAIL,
-            payload: error.response.data.message
+            payload: "Login Failed"
         })
     }
 }
@@ -76,7 +76,7 @@ export const updateProfile = (userData) => async (dispatch) => {
                 "Content-Type": "multipart/form-data"
             }
         }
-        const { data } = await axios.put("/api/v1/users/update", userData, config);
+        const { data } = await axios.put("/api/v1/users/me/update", userData, config);
         dispatch({
             type: UPDATE_PROFILE_SUCCESS,
             payload: data.success
