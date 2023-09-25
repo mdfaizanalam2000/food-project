@@ -49,22 +49,11 @@ export const clearCart = () => (dispatch) => {
     localStorage.removeItem("cartItems");
 }
 
-export const saveDeliveryInfo = (deliveryInfo) => (dispatch, getState) => {
-    try {
-        const existingDeliveryInfo = getState().cart.deliveryInfo;
-        if (existingDeliveryInfo) {
-            dispatch({
-                type: UPDATE_DELIVERY_INFO,
-                payload: deliveryInfo
-            })
-        }
-        else {
-            dispatch({
-                type: SAVE_DELIVERY_INFO,
-                payload: deliveryInfo
-            })
-        }
-    } catch (error) { }
+export const saveDeliveryInfo = (deliveryInfo) => (dispatch) => {
+    dispatch({
+        type: SAVE_DELIVERY_INFO,
+        payload: deliveryInfo
+    })
 }
 
 export const updateDeliveryInfo = (deliveryInfo) => (dispatch) => {

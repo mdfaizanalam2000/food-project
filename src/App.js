@@ -12,6 +12,7 @@ import Profile from './components/Profile';
 import UpdateProfile from './components/UpdateProfile';
 import ForgotPassword from './components/ForgotPassword';
 import NewPassword from './components/NewPassword';
+import ConfirmOrder from './components/ConfirmOrder';
 import { useEffect } from 'react';
 import { loadUser } from './actions/userAction';
 import store from "./store";
@@ -37,6 +38,7 @@ function App() {
             <Route path='/users/me/update' element={<UpdateProfile />} exact />
             <Route path='/users/forgetPassword' element={<ForgotPassword />} exact />
             <Route path='/users/resetPassword/:token' element={<NewPassword />} exact />
+            <Route path='/confirm' element={<ConfirmOrder />} exact />
           </Routes>
         </div>
         <Footer />
