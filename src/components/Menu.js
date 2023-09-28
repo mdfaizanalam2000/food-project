@@ -4,11 +4,14 @@ import { useParams } from "react-router-dom";
 import { getMenus } from "../actions/menuAction";
 import { getRestaurant } from "../actions/restaurantAction";
 import FoodItem from './FoodItem';
+import { setRestaurantId } from '../actions/cartAction';
 
 export default function Menu(storeId) {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { menus, loading, error } = useSelector((state) => state.menus);
+
+    dispatch(setRestaurantId(id));
 
     useEffect(() => {
         dispatch(getMenus(id));

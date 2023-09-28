@@ -13,13 +13,26 @@ import UpdateProfile from './components/UpdateProfile';
 import ForgotPassword from './components/ForgotPassword';
 import NewPassword from './components/NewPassword';
 import ConfirmOrder from './components/ConfirmOrder';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { loadUser } from './actions/userAction';
 import store from "./store";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+import Payment from "./components/Payment";
+import OrderSuccess from "./components/OrderSuccess";
+import ListOrders from "./components/ListOrders";
+import OrderDetails from "./components/OrderDetails";
 
 function App() {
+  const [stripeApiKey, setStripeApiKey] = useState("");
   useEffect(() => {
     store.dispatch(loadUser());
+    async function getStripeApiKey() {
+      const { data } = await axios.get("/api/v1/stripeapi");
+      setStripeApiKey(data.stripeApiKey);
+    }
+    getStripeApiKey();
   }, [])
 
   return (
@@ -39,6 +52,14 @@ function App() {
             <Route path='/users/forgetPassword' element={<ForgotPassword />} exact />
             <Route path='/users/resetPassword/:token' element={<NewPassword />} exact />
             <Route path='/confirm' element={<ConfirmOrder />} exact />
+            {stripeApiKey && (
+              <Route path='/payment' element={<Elements stripe={loadStripe(stripeApiKey)}>
+                <Payment />
+              </Elements>} />
+            )}
+            <Route path='/success' element={<OrderSuccess />} />
+            <Route path='/eats/orders/me/myOrders' element={<ListOrders />} />
+            <Route path='/eats/orders/:id' element={<OrderDetails />} />
           </Routes>
         </div>
         <Footer />

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_TO_CART, REMOVE_ITEM_CART, UPDATE_CART_QUANTITY, CLEAR_CART, SAVE_DELIVERY_INFO, UPDATE_DELIVERY_INFO } from "../constants/cartConstant";
+import { ADD_TO_CART, REMOVE_ITEM_CART, UPDATE_CART_QUANTITY, CLEAR_CART, SAVE_DELIVERY_INFO, UPDATE_DELIVERY_INFO, SET_RESTAURANT_ID } from "../constants/cartConstant";
 
 export const addItemToCart = (id, quantity,) => async (dispatch, getState) => {
     try {
@@ -63,4 +63,11 @@ export const updateDeliveryInfo = (deliveryInfo) => (dispatch) => {
             payload: deliveryInfo
         })
     } catch (error) { }
+}
+
+export const setRestaurantId = (id) => {
+    return {
+        type: SET_RESTAURANT_ID,
+        payload: id
+    }
 }
