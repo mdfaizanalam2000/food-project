@@ -61,7 +61,7 @@ const Cart = () => {
                             {cartItems.map((item) => (
                                 <>
                                     <hr />
-                                    <div className="cart-item" key={item.foodItem}>
+                                    <div className="cart-item" key={item.fooditem}>
                                         <div className="row">
                                             {/* Display Item image */}
                                             <div className="col-4 col-lg-3">
@@ -91,7 +91,7 @@ const Cart = () => {
                                                     <span
                                                         className="btn btn-danger minus"
                                                         onClick={() =>
-                                                            decreaseQty(item.foodItem, item.quantity)
+                                                            decreaseQty(item.fooditem, item.quantity)
                                                         }
                                                     >
                                                         -
@@ -108,7 +108,7 @@ const Cart = () => {
                                                         className="btn btn-primary plus"
                                                         onClick={() =>
                                                             increaseQty(
-                                                                item.foodItem,
+                                                                item.fooditem,
                                                                 item.quantity,
                                                                 item.stock
                                                             )
@@ -123,7 +123,7 @@ const Cart = () => {
                                                 <i
                                                     id="delete_cart_item"
                                                     className="fa fa-trash btn btn-danger"
-                                                    onClick={() => removeCartItemHandler(item.foodItem)}
+                                                    onClick={() => removeCartItemHandler(item.fooditem)}
                                                 ></i>
                                             </div>
                                         </div>

@@ -8,12 +8,12 @@ export const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TO_CART:
             const item = action.payload;
-            const isItemExist = state.cartItems.find((i) => i.foodItem === item.foodItem);
+            const isItemExist = state.cartItems.find((i) => i.fooditem === item.fooditem);
             if (isItemExist) {
                 return {
                     ...state,
                     cartItems: state.cartItems.map((i) =>
-                        i.foodItem === isItemExist.foodItem ? item : i)
+                        i.fooditem === isItemExist.fooditem ? item : i)
                 }
             }
             else {
@@ -27,7 +27,7 @@ export const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartItems: state.cartItems.map((item) =>
-                    item.foodItem === action.payload.foodItemId ?
+                    item.fooditem === action.payload.foodItemId ?
                         {
                             ...item,
                             quantity: action.payload.quantity
@@ -39,7 +39,7 @@ export const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartItems: state.cartItems.filter((i) =>
-                    i.foodItem !== action.payload)
+                    i.fooditem !== action.payload)
             }
 
         case SAVE_DELIVERY_INFO:

@@ -11,7 +11,7 @@ const OrderDetails = ({ }) => {
   const alert = useAlert();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { loading, error, order = {} } = useSelector((state) => state.OrderDetails);
+  const { loading, error, order = {} } = useSelector((state) => state.orderDetails);
 
   const { deliveryInfo, orderItems, paymentInfo, user, finalTotal, orderStatus } = order;
 

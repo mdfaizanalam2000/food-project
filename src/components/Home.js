@@ -5,9 +5,11 @@ import Loader from "./Loader"
 import Message from "./Message"
 import { useDispatch, useSelector } from 'react-redux'
 import CountRestaurant from "./CountRestaurant"
+import { useParams } from 'react-router-dom'
 
 export default function Home() {
     const dispatch = useDispatch();
+    const { keyword } = useParams();
 
     const {
         loading: restaurantsLoading,
@@ -20,8 +22,8 @@ export default function Home() {
         if (restaurantsError) {
             return alert.error(restaurantsError);
         }
-        dispatch(getRestaurant());
-    }, [dispatch, restaurantsError])
+        dispatch(getRestaurant(keyword));
+    }, [dispatch, restaurantsError, keyword])
 
     const handleSortByRatings = () => {
         dispatch(sortByRatings());

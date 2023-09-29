@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { ALL_RESTAURANTS_FAIL, ALL_RESTAURANTS_SUCCESS, CLEAR_ERRORS, SORT_BY_RATINGS, SORT_BY_REVIEWS, TOGGLE_VEG_ONLY } from "../constants/restaurantConstant";
 
-export const getRestaurant = () => async (dispatch) => {
+export const getRestaurant = (keyword="") => async (dispatch) => {
     try {
-        let link = "/api/v1/eats/stores";
+        // let link = "/api/v1/eats/stores";
+        let link = `/api/v1/eats/stores?keyword=${keyword}`;
         const { data } = await axios.get(link);
         const { restaurants, count } = data;
         dispatch({
